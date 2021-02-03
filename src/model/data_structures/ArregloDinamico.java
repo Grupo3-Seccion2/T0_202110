@@ -7,7 +7,7 @@ package model.data_structures;
  * @author Fernando De la Rosa
  *
  */
-public class ArregloDinamico implements IArregloDinamico {
+public class ArregloDinamico <T extends Comparable<T>> implements IArregloDinamico {
 		/**
 		 * Capacidad maxima del arreglo
 		 */
@@ -19,7 +19,7 @@ public class ArregloDinamico implements IArregloDinamico {
         /**
          * Arreglo de elementos de tamaNo maximo
          */
-        private String elementos[ ];
+        private T elementos[ ];
 
         /**
          * Construir un arreglo con la capacidad maxima inicial.
@@ -27,25 +27,26 @@ public class ArregloDinamico implements IArregloDinamico {
          */
 		public ArregloDinamico( int max )
         {
-               elementos = new String[max];
+               elementos = (T[]) new Object[max];
                tamanoMax = max;
                tamanoAct = 0;
         }
         
-		public void agregar( String dato )
+		@Override
+		public void agregar( T dato )
         {
                if ( tamanoAct == tamanoMax )
                {  // caso de arreglo lleno (aumentar tamaNo)
                     tamanoMax = 2 * tamanoMax;
-                    String [ ] copia = elementos;
-                    elementos = new String[tamanoMax];
+                    T [ ] copia = elementos;
+                    elementos = (T[])new Object[tamanoMax];
                     for ( int i = 0; i < tamanoAct; i++)
                     {
                      	 elementos[i] = copia[i];
                     } 
             	    System.out.println("Arreglo lleno: " + tamanoAct + " - Arreglo duplicado: " + tamanoMax);
                }	
-               elementos[tamanoAct] = dato;
+               elementos[tamanoAct] = (T) dato;
                tamanoAct++;
        }
 
@@ -57,19 +58,19 @@ public class ArregloDinamico implements IArregloDinamico {
 			return tamanoAct;
 		}
 
-		public String darElemento(int i) {
+		public T darElemento(int i) {
 			// TODO implementar
 			return elementos[i];
 		}
 
-		public String buscar(String dato) {
+		public T buscar(Comparable dato) {
 			// TODO implementar
 			// Recomendacion: Usar el criterio de comparacion natural (metodo compareTo()) definido en Strings.
-			String respuesta = null;
-			String actual;
+			T respuesta = null;
+			T actual;
 			for(int i = 0; i < elementos.length; i ++ ) {
 				actual = elementos[i];
-				if(actual.compareTo(dato) == 0)
+				if(actual.compareTo((T) dato) == 0)
 				{
 					respuesta = actual;
 				}
@@ -77,10 +78,10 @@ public class ArregloDinamico implements IArregloDinamico {
 			return respuesta;
 		}
 
-		public String eliminar(String dato) {
+		public T eliminar(Comparable dato) {
 			// TODO implementar
 			// Recomendacion: Usar el criterio de comparacion natural (metodo compareTo()) definido en Strings.
-			String elim = buscar(dato);
+			T elim = (T) buscar(dato);
 			for ( int i = 0; i < elementos.length; i++)
 			{
 				if(elementos[i].compareTo(elim) == 0)
@@ -90,5 +91,9 @@ public class ArregloDinamico implements IArregloDinamico {
 			}
 			return elim;
 		}
+
+
+
+
 
 }
