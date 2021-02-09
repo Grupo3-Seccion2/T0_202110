@@ -7,7 +7,7 @@ package model.data_structures;
  * @author Fernando De la Rosa
  *
  */
-public class ArregloDinamico <T extends Comparable<T>> implements IArregloDinamico {
+public class ArregloDinamico <T extends Comparable<T>> implements IArregloDinamico<T> {
 		/**
 		 * Capacidad maxima del arreglo
 		 */
@@ -32,23 +32,6 @@ public class ArregloDinamico <T extends Comparable<T>> implements IArregloDinami
                tamanoAct = 0;
         }
         
-		@Override
-		public void agregar( T dato )
-        {
-               if ( tamanoAct == tamanoMax )
-               {  // caso de arreglo lleno (aumentar tamaNo)
-                    tamanoMax = 2 * tamanoMax;
-                    T [ ] copia = elementos;
-                    elementos = (T[])new Object[tamanoMax];
-                    for ( int i = 0; i < tamanoAct; i++)
-                    {
-                     	 elementos[i] = copia[i];
-                    } 
-            	    System.out.println("Arreglo lleno: " + tamanoAct + " - Arreglo duplicado: " + tamanoMax);
-               }	
-               elementos[tamanoAct] = (T) dato;
-               tamanoAct++;
-       }
 
 		public int darCapacidad() {
 			return tamanoMax;
@@ -63,14 +46,14 @@ public class ArregloDinamico <T extends Comparable<T>> implements IArregloDinami
 			return elementos[i];
 		}
 
-		public T buscar(Comparable dato) {
+		public T buscar(T dato) {
 			// TODO implementar
 			// Recomendacion: Usar el criterio de comparacion natural (metodo compareTo()) definido en Strings.
 			T respuesta = null;
 			T actual;
 			for(int i = 0; i < elementos.length; i ++ ) {
 				actual = elementos[i];
-				if(actual.compareTo((T) dato) == 0)
+				if(actual.compareTo(dato) == 0)
 				{
 					respuesta = actual;
 				}
@@ -78,7 +61,7 @@ public class ArregloDinamico <T extends Comparable<T>> implements IArregloDinami
 			return respuesta;
 		}
 
-		public T eliminar(Comparable dato) {
+		public T eliminar(T dato) {
 			// TODO implementar
 			// Recomendacion: Usar el criterio de comparacion natural (metodo compareTo()) definido en Strings.
 			T elim = (T) buscar(dato);
@@ -90,6 +73,38 @@ public class ArregloDinamico <T extends Comparable<T>> implements IArregloDinami
 				}
 			}
 			return elim;
+		}
+
+		@Override
+		public void agregar(T dato) {
+			// TODO Auto-generated method stub
+			if ( tamanoAct == tamanoMax )
+              {  // caso de arreglo lleno (aumentar tamaNo)
+                   tamanoMax = 2 * tamanoMax;
+                   T [ ] copia = elementos;
+                   elementos = (T[])new Object[tamanoMax];
+                   for ( int i = 0; i < tamanoAct; i++)
+                   {
+                    	 elementos[i] = copia[i];
+                   } 
+           	    System.out.println("Arreglo lleno: " + tamanoAct + " - Arreglo duplicado: " + tamanoMax);
+              }	
+              elementos[tamanoAct] = (T) dato;
+              tamanoAct++;
+		}
+
+
+		public void invertir()
+		{
+			T[] copia = elementos;
+			T[] nuevo = (T[]) new Object[tamanoMax];
+			
+			for(int i = 0; i < tamanoAct; i++)
+			{
+				int i2 = tamanoAct - 1 - i;
+				nuevo[i] = elementos[i2];
+			}
+			elementos = nuevo;
 		}
 
 

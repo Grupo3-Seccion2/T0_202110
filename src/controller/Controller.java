@@ -69,7 +69,7 @@ public class Controller {
 				case 4:
 					view.printMessage("--------- \nDar cadena (simple) a eliminar: ");
 					dato = lector.next();
-					respuesta = modelo.eliminar(dato);
+					respuesta = (String) modelo.eliminar(dato);
 					if ( respuesta != null)
 					{
 						view.printMessage("Dato eliminado "+ respuesta);
@@ -87,7 +87,11 @@ public class Controller {
 					view.printMessage("Numero actual de elementos " + modelo.darTamano() + "\n---------");						
 					break;	
 					
-				case 6: 
+				case 6:
+					view.printMessage("--------- \nInvertir arreglo: ");
+					view.printModelo(modelo.invertir());
+					break;
+				case 7: 
 					view.printMessage("--------- \n Hasta pronto !! \n---------"); 
 					lector.close();
 					fin = true;
