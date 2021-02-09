@@ -32,23 +32,6 @@ public class ArregloDinamico <T extends Comparable<T>> implements IArregloDinami
                tamanoAct = 0;
         }
         
-		@Override
-		public void agregar( T dato )
-        {
-               if ( tamanoAct == tamanoMax )
-               {  // caso de arreglo lleno (aumentar tamaNo)
-                    tamanoMax = 2 * tamanoMax;
-                    T [ ] copia = elementos;
-                    elementos = (T[])new Object[tamanoMax];
-                    for ( int i = 0; i < tamanoAct; i++)
-                    {
-                     	 elementos[i] = copia[i];
-                    } 
-            	    System.out.println("Arreglo lleno: " + tamanoAct + " - Arreglo duplicado: " + tamanoMax);
-               }	
-               elementos[tamanoAct] = (T) dato;
-               tamanoAct++;
-       }
 
 		public int darCapacidad() {
 			return tamanoMax;
@@ -63,8 +46,7 @@ public class ArregloDinamico <T extends Comparable<T>> implements IArregloDinami
 			return elementos[i];
 		}
 
-		public T buscar(T dato) 
-		{
+		public T buscar(T dato) {
 			// TODO implementar
 			// Recomendacion: Usar el criterio de comparacion natural (metodo compareTo()) definido en Strings.
 			T respuesta = null;
@@ -72,6 +54,7 @@ public class ArregloDinamico <T extends Comparable<T>> implements IArregloDinami
 			for(int i = 0; i < elementos.length; i ++ ) {
 				actual = elementos[i];
 				if(actual.equals (dato))
+				if(actual.compareTo(dato) == 0)
 				{
 					respuesta = actual;
 				}
@@ -79,8 +62,7 @@ public class ArregloDinamico <T extends Comparable<T>> implements IArregloDinami
 			return respuesta;
 		}
 
-		public T eliminar(T dato) 
-		{
+		public T eliminar(T dato) {
 			// TODO implementar
 			// Recomendacion: Usar el criterio de comparacion natural (metodo compareTo()) definido en Strings.
 			T elim = buscar(dato);
@@ -106,4 +88,24 @@ public class ArregloDinamico <T extends Comparable<T>> implements IArregloDinami
 			}
 			elementos = nuevo;
 		}
+		public void agregar(T dato) {
+			// TODO Auto-generated method stub
+			if ( tamanoAct == tamanoMax )
+              {  // caso de arreglo lleno (aumentar tamaNo)
+                   tamanoMax = 2 * tamanoMax;
+                   T [ ] copia = elementos;
+                   elementos = (T[])new Object[tamanoMax];
+                   for ( int i = 0; i < tamanoAct; i++)
+                   {
+                    	 elementos[i] = copia[i];
+                   } 
+           	    System.out.println("Arreglo lleno: " + tamanoAct + " - Arreglo duplicado: " + tamanoMax);
+              }	
+              elementos[tamanoAct] = (T) dato;
+              tamanoAct++;
+		
+		}
+
+
+
 }

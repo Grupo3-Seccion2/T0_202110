@@ -44,6 +44,7 @@ public interface IArregloDinamico <T extends Comparable<T>>
 	 */
 	public T eliminar( T dato );
 	
+
 	/**
 	 * Invierte lo elementos del arreglo 
 	 */
