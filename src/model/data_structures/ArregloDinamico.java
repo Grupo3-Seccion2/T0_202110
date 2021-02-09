@@ -7,7 +7,7 @@ package model.data_structures;
  * @author Fernando De la Rosa
  *
  */
-public class ArregloDinamico <T extends Comparable<T>> implements IArregloDinamico {
+public class ArregloDinamico <T extends Comparable<T>> implements IArregloDinamico<T> {
 		/**
 		 * Capacidad maxima del arreglo
 		 */
@@ -63,14 +63,15 @@ public class ArregloDinamico <T extends Comparable<T>> implements IArregloDinami
 			return elementos[i];
 		}
 
-		public T buscar(Comparable dato) {
+		public T buscar(T dato) 
+		{
 			// TODO implementar
 			// Recomendacion: Usar el criterio de comparacion natural (metodo compareTo()) definido en Strings.
 			T respuesta = null;
 			T actual;
 			for(int i = 0; i < elementos.length; i ++ ) {
 				actual = elementos[i];
-				if(actual.compareTo((T) dato) == 0)
+				if(actual.equals (dato))
 				{
 					respuesta = actual;
 				}
@@ -78,13 +79,14 @@ public class ArregloDinamico <T extends Comparable<T>> implements IArregloDinami
 			return respuesta;
 		}
 
-		public T eliminar(Comparable dato) {
+		public T eliminar(T dato) 
+		{
 			// TODO implementar
 			// Recomendacion: Usar el criterio de comparacion natural (metodo compareTo()) definido en Strings.
-			T elim = (T) buscar(dato);
+			T elim = buscar(dato);
 			for ( int i = 0; i < elementos.length; i++)
 			{
-				if(elementos[i].compareTo(elim) == 0)
+				if(elementos[i].equals(elim))
 				{
 					elementos[i] = null;
 				}
@@ -92,8 +94,16 @@ public class ArregloDinamico <T extends Comparable<T>> implements IArregloDinami
 			return elim;
 		}
 
-
-
-
-
+		@Override
+		public void invertir() 
+		{
+			T[] copia = elementos;
+			T[] nuevo = (T[]) new Object[tamanoMax];
+			for (int i = 0; i < tamanoAct; i++)
+			{
+				int j = tamanoAct -1 -i;
+				nuevo [i]= copia[j];
+			}
+			elementos = nuevo;
+		}
 }
